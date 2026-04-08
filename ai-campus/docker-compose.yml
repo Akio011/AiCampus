@@ -1,0 +1,44 @@
+version: '3.9'
+
+services:
+
+  app:
+    build: .
+    container_name: ai_campus_app
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: ai_user
+      DB_PASS: ai_pass
+      DB_NAME: ai_campus
+
+  db:
+    image: mysql:8.0
+    container_name: ai_campus_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: ai_campus
+      MYSQL_USER: ai_user
+      MYSQL_PASSWORD: ai_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./sql/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpass"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  db_data:
