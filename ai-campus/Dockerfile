@@ -12,6 +12,9 @@ WORKDIR /var/www/html
 # Copy project files
 COPY . .
 
-# Set permissions for uploads
+# Set permissions for uploads and sessions
 RUN chown -R www-data:www-data /var/www/html/assets/uploads \
-    && chmod -R 755 /var/www/html/assets/uploads
+    && chmod -R 755 /var/www/html/assets/uploads \
+    && mkdir -p /var/lib/php/sessions \
+    && chown -R www-data:www-data /var/lib/php/sessions \
+    && chmod 777 /var/lib/php/sessions
