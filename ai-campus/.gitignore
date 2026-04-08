@@ -1,0 +1,5 @@
+.env
+config/google.php
+assets/uploads/*
+!assets/uploads/.gitkeep
+vendor/
