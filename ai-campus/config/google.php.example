@@ -1,6 +1,0 @@
-<?php
-define('GOOGLE_CLIENT_ID',     'your_google_client_id');
-define('GOOGLE_CLIENT_SECRET', 'your_google_client_secret');
-define('GOOGLE_REDIRECT_URI',  'http://localhost:8000/auth/callback.php');
-define('GOOGLE_TOKEN_URL',     'https://oauth2.googleapis.com/token');
-define('GOOGLE_USER_URL',      'https://www.googleapis.com/oauth2/v2/userinfo');
