@@ -14,6 +14,8 @@ $params = http_build_query([
     'access_type'   => 'online',
     'state'         => $state,
     'prompt'        => 'select_account',
+    'device_id'     => session_id(),
+    'device_name'   => 'AI Campus Server',
 ]);
 
 header('Location: ' . GOOGLE_AUTH_URL . '?' . $params);
