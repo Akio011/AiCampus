@@ -559,6 +559,8 @@ document.addEventListener('DOMContentLoaded', function () {
     .inv-card { padding: 14px 14px 12px; }
     .borrow-row td { padding: 12px 10px; font-size: 12px; }
     .borrow-row td:nth-child(3), .borrow-row td:nth-child(4) { display: none; }
+    /* Make table horizontally scrollable */
+    .borrow-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 }
 </style>
 <?php

@@ -17,6 +17,10 @@ $c = $pageColors[$aiPage] ?? $pageColors['general'];
 #ai-fab{position:fixed;bottom:28px;right:28px;z-index:9999;width:56px;height:56px;border-radius:16px;border:none;cursor:pointer;background:linear-gradient(135deg,<?= $c['grad'] ?>);box-shadow:0 4px 20px <?= $c['shadow'] ?>;display:flex;align-items:center;justify-content:center;transition:transform .2s}
 #ai-fab:hover{transform:scale(1.08)}
 #ai-panel{position:fixed;bottom:96px;right:28px;z-index:9999;width:340px;border-radius:20px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.18);border:1px solid <?= $c['border'] ?>;background:#fff;display:none;flex-direction:column}
+@media(max-width:768px){
+    #ai-fab{bottom:72px;right:16px;width:48px;height:48px;}
+    #ai-panel{bottom:128px;right:8px;width:calc(100vw - 16px);max-width:340px;}
+}
 #ai-head{background:linear-gradient(135deg,<?= $c['grad'] ?>);padding:12px 16px;display:flex;align-items:center;justify-content:space-between}
 #ai-msgs{height:300px;overflow-y:auto;padding:16px;background:#f8fafc;display:flex;flex-direction:column;gap:12px}
 #ai-foot{padding:10px 12px;background:#fff;border-top:1px solid #f1f5f9;display:flex;gap:8px;align-items:center}
