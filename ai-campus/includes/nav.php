@@ -141,17 +141,6 @@ $navItems = [
 }
 </style>
 
-<div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-<!-- Mobile top bar -->
-<div class="mob-bar">
-    <button class="mob-toggle" id="mobToggle">
-        <i class="fas fa-bars" style="color:#374151;font-size:14px"></i>
-    </button>
-    <img src="/assets/ccse-seal.jpg" alt="CCSE" style="width:28px;height:28px;border-radius:8px;object-fit:cover">
-    <span class="mob-bar-title">AI Campus</span>
-</div>
-
 <aside style="width:256px;min-height:100vh;background:#fff;position:fixed;left:0;top:0;z-index:100;display:flex;flex-direction:column;border-right:1px solid #e5e7eb" id="sidebar" class="sidebar">
 
     <!-- Logo -->
@@ -216,6 +205,32 @@ $navItems = [
         </a>
     </div>
 </aside>
+
+<!-- Bottom nav (mobile only) -->
+<nav class="bottom-nav">
+    <?php foreach($navItems as $item):
+        $isActive = $current === $item['file'];
+    ?>
+    <a href="/<?= $item['file'] ?>" class="bottom-nav-item <?= $isActive ? 'active' : '' ?>">
+        <i class="fas <?= $item['icon'] ?>"></i>
+        <span><?= explode(' ', $item['label'])[0] ?></span>
+    </a>
+    <?php endforeach; ?>
+    <a href="/auth/logout.php" class="bottom-nav-item">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+    </a>
+</nav>
+
+<!-- Mobile top bar -->
+<div class="mob-bar">
+    <img src="/assets/ccse-seal.jpg" alt="CCSE" style="width:30px;height:30px;border-radius:8px;object-fit:cover">
+    <span class="mob-bar-title">AI Campus</span>
+    <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
+        <img src="<?= $navAvatar ?>" referrerpolicy="no-referrer" alt="avatar" style="width:30px;height:30px;border-radius:50%;object-fit:cover;border:2px solid #f5c6ce">
+    </div>
+</div>
+
 <script>
 document.querySelectorAll('.nav-link').forEach(function(link) {
     link.addEventListener('mouseenter', function(e) {
@@ -228,26 +243,4 @@ document.querySelectorAll('.nav-link').forEach(function(link) {
         setTimeout(function(){ r.remove(); }, 560);
     });
 });
-
-// Mobile sidebar toggle
-var sidebar = document.getElementById('sidebar');
-var overlay = document.getElementById('sidebarOverlay');
-var toggle  = document.getElementById('mobToggle');
-if (toggle) {
-    toggle.addEventListener('click', function() {
-        sidebar.classList.toggle('open');
-        overlay.classList.toggle('open');
-    });
-    overlay.addEventListener('click', function() {
-        sidebar.classList.remove('open');
-        overlay.classList.remove('open');
-    });
-    // Close on nav link click (mobile)
-    document.querySelectorAll('.nav-link').forEach(function(link) {
-        link.addEventListener('click', function() {
-            sidebar.classList.remove('open');
-            overlay.classList.remove('open');
-        });
-    });
-}
 </script>

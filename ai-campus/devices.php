@@ -103,7 +103,7 @@ require_once 'includes/nav.php';
             </div>
 
             <!-- Device cards grid -->
-            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px">
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px" class="inv-grid">
                 <?php foreach($devices as $idx => $d):
                     $avail = $d['total_units'] - $d['in_use'] - $d['overdue'];
                     $pct   = $d['total_units'] > 0 ? round(($avail / $d['total_units']) * 100) : 0;
@@ -553,6 +553,12 @@ document.addEventListener('DOMContentLoaded', function () {
     border-color: #8b1a2e;
     box-shadow: 0 6px 16px rgba(139,26,46,.3);
     transform: translateY(-2px) scale(1.03);
+}
+@media (max-width: 768px) {
+    .inv-grid { grid-template-columns: repeat(2,1fr) !important; gap: 12px !important; }
+    .inv-card { padding: 14px 14px 12px; }
+    .borrow-row td { padding: 12px 10px; font-size: 12px; }
+    .borrow-row td:nth-child(3), .borrow-row td:nth-child(4) { display: none; }
 }
 </style>
 <?php

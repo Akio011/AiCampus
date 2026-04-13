@@ -21,14 +21,33 @@
         .mob-toggle { width: 36px; height: 36px; border-radius: 10px; border: 1.5px solid #e2e8f0; background: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
         .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(15,23,42,.4); z-index: 99; backdrop-filter: blur(2px); }
 
+        /* Bottom nav bar (mobile) */
+        .bottom-nav { display: none; position: fixed; bottom: 0; left: 0; right: 0; height: 60px; background: #fff; border-top: 1px solid #f1f5f9; z-index: 100; align-items: center; justify-content: space-around; padding: 0 4px; box-shadow: 0 -4px 20px rgba(0,0,0,.06); }
+        .bottom-nav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 6px 12px; border-radius: 12px; text-decoration: none; color: #94a3b8; font-size: 9.5px; font-weight: 600; transition: all .2s; flex: 1; }
+        .bottom-nav-item i { font-size: 18px; }
+        .bottom-nav-item.active { color: #8b1a2e; }
+        .bottom-nav-item.active i { transform: scale(1.15); }
+
         @media (max-width: 768px) {
-            .sidebar { transform: translateX(-100%); z-index: 101; }
-            .sidebar.open { transform: translateX(0); }
-            .sidebar-overlay.open { display: block; }
-            .main-content { margin-left: 0; padding-top: 56px; }
+            .sidebar { display: none !important; }
+            .main-content { margin-left: 0; padding-top: 56px; padding-bottom: 68px; }
             .mob-bar { display: flex; }
+            .bottom-nav { display: flex; }
             .page-header { padding: 14px 16px; flex-wrap: wrap; gap: 10px; }
             .modal-box { margin: 16px; max-width: calc(100vw - 32px) !important; }
+            /* Force single column grids on mobile */
+            [style*="grid-template-columns:repeat(4"] { grid-template-columns: repeat(2,1fr) !important; }
+            [style*="grid-template-columns:repeat(3"] { grid-template-columns: repeat(1,1fr) !important; }
+            [style*="grid-cols-4"] { grid-template-columns: repeat(2,1fr) !important; }
+            .grid-cols-4 { grid-template-columns: repeat(2,1fr) !important; }
+            .grid-cols-3 { grid-template-columns: repeat(1,1fr) !important; }
+            .grid-cols-2 { grid-template-columns: repeat(1,1fr) !important; }
+            /* Stack page header buttons */
+            .page-header > div:last-child { width: 100%; }
+            .page-header .flex { flex-wrap: wrap; }
+            /* Smaller padding on mobile */
+            .p-8 { padding: 16px !important; }
+            .p-6 { padding: 12px !important; }
         }
 
         /* Nav items */
