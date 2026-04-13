@@ -1,5 +1,4 @@
 <?php
-// Include at the top of every protected page
 if (session_status() === PHP_SESSION_NONE) session_start();
 
 if (empty($_SESSION['user'])) {
@@ -12,8 +11,32 @@ if (empty($_SESSION['user'])) {
 }
 
 $authUser = $_SESSION['user'];
+$role     = $authUser['role'];
+$page     = basename($_SERVER['PHP_SELF']);
 
-// Role helpers
+// Pages each role can access
+$allowedPages = [
+    'admin'   => ['index.php','devices.php','lost-found.php','capstone.php','community.php'],
+    'faculty' => ['index.php','devices.php','lost-found.php','capstone.php','community.php'],
+    'staff'   => ['devices.php'],
+    'student' => ['lost-found.php','capstone.php'],
+];
+
+// Default landing page per role
+$defaultPage = [
+    'admin'   => '/index.php',
+    'faculty' => '/index.php',
+    'staff'   => '/devices.php',
+    'student' => '/lost-found.php',
+];
+
+$allowed = $allowedPages[$role] ?? ['lost-found.php'];
+
+if (!in_array($page, $allowed)) {
+    header('Location: ' . ($defaultPage[$role] ?? '/lost-found.php'));
+    exit;
+}
+
 function isStaff(): bool {
     global $authUser;
     return in_array($authUser['role'], ['admin', 'faculty', 'staff']);
@@ -22,7 +45,6 @@ function isAdmin(): bool {
     global $authUser;
     return $authUser['role'] === 'admin';
 }
-// Block action and redirect if not staff
 function requireStaff(): void {
     if (!isStaff()) {
         header('Location: ' . $_SERVER['PHP_SELF']); exit;

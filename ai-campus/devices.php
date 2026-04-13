@@ -228,7 +228,8 @@ require_once 'includes/nav.php';
             </div>
 
             <!-- Table -->
-            <table style="width:100%;border-collapse:collapse">
+            <div class="borrow-table-wrap">
+            <table style="width:100%;border-collapse:collapse;min-width:600px">
                 <thead>
                     <tr style="background:#f8fafc">
                         <?php foreach([
@@ -333,6 +334,7 @@ require_once 'includes/nav.php';
                     <?php endif; ?>
                 </tbody>
             </table>
+            </div>
         </div>
     </div>
 </div>
