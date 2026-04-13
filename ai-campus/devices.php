@@ -144,8 +144,6 @@ require_once 'includes/nav.php';
                 <div class="inv-card reveal" style="transition-delay:<?= ($idx % 4) * 60 ?>ms">
                     <!-- Content wrapper -->
                     <div style="position:relative;z-index:1">
-                        <!-- Top gradient bar -->
-                        <div style="height:3px;background:<?= $barGrad ?>;border-radius:99px;margin-bottom:18px;box-shadow:0 0 8px rgba(<?= $glowRgb ?>,.35)"></div>
 
                         <!-- Icon + name + badge -->
                         <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px">
