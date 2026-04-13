@@ -3,7 +3,8 @@ require_once 'includes/auth_guard.php';
 require_once 'config/db.php';
 $pageTitle = 'Device Borrowing — AI Campus Management';
 
-$canBorrow = isStaff();
+$canBorrow    = isStaff();
+$canAddDevice = isAdmin();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     requireStaff();
@@ -58,9 +59,11 @@ require_once 'includes/nav.php';
         </div>
         <?php if($canBorrow): ?>
         <div class="flex gap-2">
+        <?php if($canAddDevice): ?>
         <button onclick="document.getElementById('addDeviceModal').classList.remove('hidden')" class="btn-primary">
             <i class="fas fa-box text-xs"></i> Add Device
         </button>
+        <?php endif; ?>
         <button onclick="document.getElementById('borrowModal').classList.remove('hidden')" class="btn-primary">
             <i class="fas fa-plus text-xs"></i> Log Borrowing
         </button>
