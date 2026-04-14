@@ -38,7 +38,8 @@ require_once 'includes/nav.php';
     </div>
     <div class="p-8">
         <div style="max-width:560px;margin:0 auto;background:#fff;border-radius:20px;padding:28px;border:1px solid #f1f5f9;box-shadow:0 1px 3px rgba(0,0,0,.06)">
-            <form method="POST" enctype="multipart/form-data" class="space-y-4">
+            <form method="POST" enctype="multipart/form-data" class="space-y-4" id="postForm">
+                <input type="hidden" name="post_item" value="1">
                 <div>
                     <label class="form-label">Type</label>
                     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
@@ -64,7 +65,7 @@ require_once 'includes/nav.php';
                     <label class="form-label">Photo <span style="color:#94a3b8;font-weight:400">(optional)</span></label>
                     <input type="file" name="item_image" accept="image/*" class="form-input" style="padding:8px">
                 </div>
-                <button type="submit" name="post_item" class="btn-primary w-full justify-center" style="width:100%;justify-content:center;padding:14px">
+                <button type="button" onclick="this.closest('form').submit()" class="btn-primary" style="width:100%;justify-content:center;padding:14px;font-size:15px">
                     <i class="fas fa-paper-plane"></i> Post Item
                 </button>
             </form>
