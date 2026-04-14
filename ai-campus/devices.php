@@ -107,35 +107,34 @@ require_once 'includes/nav.php';
 
             <!-- Device cards grid -->
             <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px" class="inv-grid">
-                <?php foreach($devices as $idx => $d):
+                <?php
+                // Category color palettes
+                $catPalettes = [
+                    'computing'    => ['#1e40af','#3b82f6','#dbeafe','#eff6ff','linear-gradient(135deg,#1e40af,#3b82f6)'],
+                    'av equipment' => ['#7c3aed','#a78bfa','#ede9fe','#f5f3ff','linear-gradient(135deg,#7c3aed,#a78bfa)'],
+                    'cables'       => ['#0f766e','#2dd4bf','#ccfbf1','#f0fdfa','linear-gradient(135deg,#0f766e,#2dd4bf)'],
+                    'accessories'  => ['#b45309','#f59e0b','#fef3c7','#fffbeb','linear-gradient(135deg,#b45309,#f59e0b)'],
+                    'supplies'     => ['#be185d','#f472b6','#fce7f3','#fdf2f8','linear-gradient(135deg,#be185d,#f472b6)'],
+                    'default'      => ['#374151','#6b7280','#f3f4f6','#f9fafb','linear-gradient(135deg,#374151,#6b7280)'],
+                ];
+                foreach($devices as $idx => $d):
                     $avail = $d['total_units'] - $d['in_use'] - $d['overdue'];
                     $pct   = $d['total_units'] > 0 ? round(($avail / $d['total_units']) * 100) : 0;
+                    $catKey = strtolower($d['category'] ?? '');
+                    $pal = $catPalettes[$catKey] ?? $catPalettes['default'];
+                    [$darkColor,$lightColor,$bgLight,$bgLighter,$gradient] = $pal;
+
                     if ($pct > 60) {
-                        $statusLabel = 'Available';
-                        $statusStyle = 'color:#15803d;background:linear-gradient(135deg,#dcfce7,#bbf7d0);border:1px solid #86efac';
+                        $statusLabel = 'Available'; $statusStyle = 'color:#15803d;background:#dcfce7;border:1px solid #86efac';
                         $barGrad = 'linear-gradient(90deg,#4ade80,#16a34a)';
-                        $glowRgb = '34,197,94';
-                        $iconGrad = 'linear-gradient(135deg,#f0fdf4,#dcfce7)';
-                        $iconColor = '#16a34a'; $pctColor = '#16a34a';
-                        $numGrad = 'linear-gradient(135deg,#16a34a,#4ade80)';
                     } elseif ($pct > 30) {
-                        $statusLabel = 'Limited';
-                        $statusStyle = 'color:#92400e;background:linear-gradient(135deg,#fef3c7,#fde68a);border:1px solid #fcd34d';
+                        $statusLabel = 'Limited'; $statusStyle = 'color:#92400e;background:#fef3c7;border:1px solid #fcd34d';
                         $barGrad = 'linear-gradient(90deg,#fbbf24,#d97706)';
-                        $glowRgb = '245,158,11';
-                        $iconGrad = 'linear-gradient(135deg,#fffbeb,#fef3c7)';
-                        $iconColor = '#d97706'; $pctColor = '#d97706';
-                        $numGrad = 'linear-gradient(135deg,#d97706,#fbbf24)';
                     } else {
-                        $statusLabel = 'Low Stock';
-                        $statusStyle = 'color:#991b1b;background:linear-gradient(135deg,#fee2e2,#fecaca);border:1px solid #fca5a5';
+                        $statusLabel = 'Low Stock'; $statusStyle = 'color:#991b1b;background:#fee2e2;border:1px solid #fca5a5';
                         $barGrad = 'linear-gradient(90deg,#f87171,#dc2626)';
-                        $glowRgb = '239,68,68';
-                        $iconGrad = 'linear-gradient(135deg,#fef2f2,#fee2e2)';
-                        $iconColor = '#dc2626'; $pctColor = '#dc2626';
-                        $numGrad = 'linear-gradient(135deg,#dc2626,#f87171)';
                     }
-                    $catIcon = match(strtolower($d['category'] ?? '')) {
+                    $catIcon = match($catKey) {
                         'computing'    => 'fa-laptop',
                         'av equipment' => 'fa-tv',
                         'cables'       => 'fa-plug',
@@ -144,61 +143,60 @@ require_once 'includes/nav.php';
                         default        => 'fa-cube',
                     };
                 ?>
-                <div class="inv-card reveal" style="transition-delay:<?= ($idx % 4) * 60 ?>ms">
-                    <!-- Content wrapper -->
-                    <div style="position:relative;z-index:1">
-
-                        <!-- Icon + name + badge -->
-                        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px">
-                            <div style="display:flex;align-items:center;gap:11px">
-                                <div class="inv-icon" style="width:42px;height:42px;border-radius:13px;background:<?= $iconGrad ?>;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 3px 10px rgba(<?= $glowRgb ?>,.2),0 0 0 1px rgba(<?= $glowRgb ?>,.1)">
-                                    <i class="fas <?= $catIcon ?>" style="color:<?= $iconColor ?>;font-size:15px"></i>
+                <div class="inv-card reveal" style="transition-delay:<?= ($idx % 4) * 60 ?>ms;overflow:hidden">
+                    <!-- Colored header band -->
+                    <div style="background:<?= $gradient ?>;margin:-18px -18px 16px;padding:16px 18px 14px;position:relative">
+                        <div style="display:flex;align-items:center;justify-content:space-between">
+                            <div style="display:flex;align-items:center;gap:10px">
+                                <div style="width:38px;height:38px;border-radius:11px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;backdrop-filter:blur(4px)">
+                                    <i class="fas <?= $catIcon ?>" style="color:#fff;font-size:15px"></i>
                                 </div>
                                 <div>
-                                    <div style="font-weight:700;font-size:13px;color:#0f172a;line-height:1.25;letter-spacing:-.01em"><?= htmlspecialchars($d['name']) ?></div>
-                                    <div style="font-size:10px;color:#94a3b8;margin-top:2px;font-weight:600;text-transform:uppercase;letter-spacing:.06em"><?= htmlspecialchars($d['category']) ?></div>
+                                    <div style="font-weight:700;font-size:13px;color:#fff;line-height:1.2"><?= htmlspecialchars($d['name']) ?></div>
+                                    <div style="font-size:10px;color:rgba(255,255,255,.7);margin-top:1px;text-transform:uppercase;letter-spacing:.06em;font-weight:600"><?= htmlspecialchars($d['category']) ?></div>
                                 </div>
                             </div>
-                            <span style="font-size:9.5px;font-weight:800;padding:4px 10px;border-radius:99px;white-space:nowrap;letter-spacing:.04em;<?= $statusStyle ?>"><?= $statusLabel ?></span>
-                        </div>
-
-                        <!-- Big number + pct -->
-                        <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:10px">
-                            <div>
-                                <div style="font-size:38px;font-weight:900;line-height:1;background:<?= $numGrad ?>;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-.03em"><?= $avail ?></div>
-                                <div style="font-size:11px;color:#94a3b8;margin-top:3px;font-weight:500">of <?= $d['total_units'] ?> units free</div>
-                            </div>
-                            <div style="text-align:right">
-                                <div style="font-size:20px;font-weight:900;color:<?= $pctColor ?>;line-height:1;letter-spacing:-.02em"><?= $pct ?>%</div>
-                                <div style="font-size:10px;color:#cbd5e1;margin-top:2px;font-weight:500">utilization</div>
-                            </div>
-                        </div>
-
-                        <!-- Progress bar -->
-                        <div style="height:5px;background:#f1f5f9;border-radius:99px;overflow:hidden;margin-bottom:14px">
-                            <div class="device-bar-fill" data-width="<?= $pct ?>" style="height:100%;border-radius:99px;background:<?= $barGrad ?>;width:0%;box-shadow:0 0 6px rgba(<?= $glowRgb ?>,.5)"></div>
-                        </div>
-
-                        <!-- Stats row -->
-                        <div style="display:flex;align-items:center;gap:14px;padding-top:12px;border-top:1px solid #f8fafc">
-                            <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:#64748b;font-weight:600">
-                                <span style="width:6px;height:6px;border-radius:50%;background:#3b82f6;display:inline-block"></span>
-                                <?= $d['in_use'] ?> in use
-                            </span>
-                            <?php if($d['overdue'] > 0): ?>
-                            <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:#ef4444;font-weight:700">
-                                <i class="fas fa-exclamation-circle" style="font-size:10px"></i>
-                                <?= $d['overdue'] ?> overdue
-                            </span>
-                            <?php else: ?>
-                            <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:#22c55e;font-weight:600">
-                                <i class="fas fa-check-circle" style="font-size:11px"></i>
-                                No overdue
-                            </span>
-                            <?php endif; ?>
+                            <span style="font-size:9.5px;font-weight:800;padding:4px 10px;border-radius:99px;white-space:nowrap;<?= $statusStyle ?>"><?= $statusLabel ?></span>
                         </div>
                     </div>
+
+                    <!-- Big number + pct -->
+                    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:10px">
+                        <div>
+                            <div style="font-size:40px;font-weight:900;line-height:1;color:<?= $darkColor ?>;letter-spacing:-.03em"><?= $avail ?></div>
+                            <div style="font-size:11px;color:#94a3b8;margin-top:3px;font-weight:500">of <?= $d['total_units'] ?> units free</div>
+                        </div>
+                        <div style="text-align:right">
+                            <div style="font-size:20px;font-weight:900;color:<?= $darkColor ?>;line-height:1"><?= $pct ?>%</div>
+                            <div style="font-size:10px;color:#cbd5e1;margin-top:2px;font-weight:500">utilization</div>
+                        </div>
+                    </div>
+
+                    <!-- Progress bar -->
+                    <div style="height:5px;background:#f1f5f9;border-radius:99px;overflow:hidden;margin-bottom:14px">
+                        <div class="device-bar-fill" data-width="<?= $pct ?>" style="height:100%;border-radius:99px;background:<?= $barGrad ?>;width:0%"></div>
+                    </div>
+
+                    <!-- Stats row -->
+                    <div style="display:flex;align-items:center;gap:14px;padding-top:10px;border-top:1px solid #f8fafc">
+                        <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:#64748b;font-weight:600">
+                            <span style="width:6px;height:6px;border-radius:50%;background:<?= $lightColor ?>;display:inline-block"></span>
+                            <?= $d['in_use'] ?> in use
+                        </span>
+                        <?php if($d['overdue'] > 0): ?>
+                        <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:#ef4444;font-weight:700">
+                            <i class="fas fa-exclamation-circle" style="font-size:10px"></i>
+                            <?= $d['overdue'] ?> overdue
+                        </span>
+                        <?php else: ?>
+                        <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:#22c55e;font-weight:600">
+                            <i class="fas fa-check-circle" style="font-size:11px"></i>
+                            No overdue
+                        </span>
+                        <?php endif; ?>
+                    </div>
                 </div>
+                <?php endforeach; ?>                </div>
                 <?php endforeach; ?>
             </div>
         </div>
