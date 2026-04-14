@@ -196,7 +196,6 @@ require_once 'includes/nav.php';
                         <?php endif; ?>
                     </div>
                 </div>
-                <?php endforeach; ?>                </div>
                 <?php endforeach; ?>
             </div>
         </div>
