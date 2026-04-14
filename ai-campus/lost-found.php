@@ -310,7 +310,8 @@ require_once 'includes/nav.php';
     <!-- ── LIST VIEW ── -->
     <div id="listView" style="<?=$viewMode!=='list'?'display:none':''?>">
       <div style="background:#fff;border:1px solid #f1f5f9;border-radius:20px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.05)">
-        <table class="lf-table">
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
+        <table class="lf-table" style="min-width:650px">
           <thead><tr>
             <th>Item</th><th>Type</th><th>Location</th><th>Posted By</th><th>Date</th><th>Status</th><?php if(isStaff()): ?><th>Action</th><?php endif; ?>
           </tr></thead>
@@ -356,6 +357,7 @@ require_once 'includes/nav.php';
           <?php endforeach; ?>
           </tbody>
         </table>
+        </div>
       </div>
     </div>
 

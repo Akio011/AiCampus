@@ -166,6 +166,11 @@ require_once 'includes/nav.php';
 
 @keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
 .anim-in { opacity:0; animation: fadeUp .45s cubic-bezier(.22,.68,0,1.2) forwards; }
+@media(max-width:768px){
+    .pro-table th:nth-child(3),.pro-table td:nth-child(3){ display:none; }
+    .pro-row td { padding:12px 12px; font-size:12px; }
+    .pipeline { flex-direction:column !important; gap:12px !important; }
+}
 </style>
 
 <div class="main-content">
@@ -284,7 +289,8 @@ require_once 'includes/nav.php';
                     </div>
                 </div>
             </div>
-            <table class="pro-table">
+            <div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
+            <table class="pro-table" style="min-width:700px">
                 <thead><tr>
                     <?php foreach(['Student','Violation','Supervisor','Hours Progress','Status','Actions'] as $h): ?>
                     <th><?= $h ?></th>
@@ -352,6 +358,7 @@ require_once 'includes/nav.php';
                 <?php endforeach; ?>
                 </tbody>
             </table>
+            </div>
         </div>
     </div>
 </div>
