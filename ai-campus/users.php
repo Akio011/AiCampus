@@ -65,7 +65,7 @@ require_once 'includes/nav.php';
                     </div>
                     <select id="roleFilter" style="padding:9px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:13px;outline:none">
                         <option value="">All Roles</option>
-                        <?php foreach(['super_admin','admin','faculty','staff','student'] as $r): ?>
+                        <?php foreach(['admin','faculty','staff','student'] as $r): ?>
                         <option value="<?= $r ?>" <?= $roleFilter===$r?'selected':'' ?>><?= ucfirst(str_replace('_',' ',$r)) ?></option>
                         <?php endforeach; ?>
                     </select>
@@ -119,7 +119,7 @@ require_once 'includes/nav.php';
                             <form method="POST" style="display:inline-flex;align-items:center;gap:6px">
                                 <input type="hidden" name="user_id" value="<?= $u['id'] ?>">
                                 <select name="role" style="padding:6px 10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:12px;outline:none">
-                                    <?php foreach(['super_admin','admin','faculty','staff','student'] as $r): ?>
+                                    <?php foreach(['admin','faculty','staff','student'] as $r): ?>
                                     <option value="<?= $r ?>" <?= $u['role']===$r?'selected':'' ?>><?= ucfirst(str_replace('_',' ',$r)) ?></option>
                                     <?php endforeach; ?>
                                 </select>
