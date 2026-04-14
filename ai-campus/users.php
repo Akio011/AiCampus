@@ -72,7 +72,8 @@ require_once 'includes/nav.php';
                 </div>
             </div>
 
-            <table style="width:100%;border-collapse:collapse">
+            <div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
+            <table style="width:100%;border-collapse:collapse;min-width:700px">
                 <thead>
                     <tr style="background:#f8fafc">
                         <?php foreach(['User','Email','Role','Joined','Actions'] as $h): ?>
@@ -140,6 +141,7 @@ require_once 'includes/nav.php';
                 <?php endforeach; ?>
                 </tbody>
             </table>
+            </div>
         </div>
     </div>
 </div>
