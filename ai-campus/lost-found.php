@@ -389,8 +389,8 @@ require_once 'includes/nav.php';
 </div>
 
 <!-- ── Post Modal ── -->
-<div id="postModal" class="<?=$showForm?'':'hidden'?> modal-overlay" style="align-items:flex-end;padding-bottom:0">
-  <div class="modal-box" style="border-radius:24px 24px 0 0;max-height:92vh;overflow-y:auto;padding-bottom:env(safe-area-inset-bottom,16px)">
+<div id="postModal" class="<?=$showForm?'':'hidden'?> modal-overlay">
+  <div class="modal-box" style="max-height:90vh;overflow-y:auto">
     <div class="flex items-center justify-between mb-6">
       <div><h3 class="font-bold text-slate-800 text-base">Post Item</h3>
         <p class="text-slate-400 text-xs mt-0.5">Add a lost or found item to the board</p></div>
