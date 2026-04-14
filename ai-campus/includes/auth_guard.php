@@ -16,18 +16,20 @@ $page     = basename($_SERVER['PHP_SELF']);
 
 // Pages each role can access
 $allowedPages = [
-    'admin'   => ['index.php','devices.php','lost-found.php','capstone.php','community.php'],
-    'faculty' => ['index.php','devices.php','lost-found.php','capstone.php','community.php'],
-    'staff'   => ['devices.php'],
-    'student' => ['lost-found.php','capstone.php'],
+    'super_admin' => ['index.php','devices.php','lost-found.php','capstone.php','community.php','users.php'],
+    'admin'       => ['index.php','devices.php','lost-found.php','capstone.php','community.php'],
+    'faculty'     => ['index.php','devices.php','lost-found.php','capstone.php','community.php'],
+    'staff'       => ['devices.php'],
+    'student'     => ['lost-found.php','capstone.php'],
 ];
 
 // Default landing page per role
 $defaultPage = [
-    'admin'   => '/index.php',
-    'faculty' => '/index.php',
-    'staff'   => '/devices.php',
-    'student' => '/lost-found.php',
+    'super_admin' => '/index.php',
+    'admin'       => '/index.php',
+    'faculty'     => '/index.php',
+    'staff'       => '/devices.php',
+    'student'     => '/lost-found.php',
 ];
 
 $allowed = $allowedPages[$role] ?? ['lost-found.php'];
@@ -37,13 +39,28 @@ if (!in_array($page, $allowed)) {
     exit;
 }
 
-function isStaff(): bool {
+function isSuperAdmin(): bool {
     global $authUser;
-    return in_array($authUser['role'], ['admin', 'faculty', 'staff']);
+    return $authUser['role'] === 'super_admin';
 }
 function isAdmin(): bool {
     global $authUser;
-    return $authUser['role'] === 'admin';
+    return in_array($authUser['role'], ['super_admin', 'admin']);
+}
+function isStaff(): bool {
+    global $authUser;
+    return in_array($authUser['role'], ['super_admin', 'admin', 'faculty', 'staff']);
+}
+function requireAdmin(): void {
+    global $authUser;
+    if (!isAdmin()) {
+        header('Location: /index.php'); exit;
+    }
+}
+function requireSuperAdmin(): void {
+    if (!isSuperAdmin()) {
+        header('Location: /index.php'); exit;
+    }
 }
 function requireStaff(): void {
     if (!isStaff()) {

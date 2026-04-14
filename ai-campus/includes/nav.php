@@ -15,11 +15,12 @@ try {
 } catch(Exception $e) {}
 
 $navItems = [
-    ['file'=>'index.php',      'icon'=>'fa-th-large',       'label'=>'Dashboard',         'badge'=>0,       'roles'=>['admin','faculty']],
-    ['file'=>'devices.php',    'icon'=>'fa-laptop',         'label'=>'Device Borrowing',  'badge'=>0,       'roles'=>['admin','faculty','staff']],
-    ['file'=>'lost-found.php', 'icon'=>'fa-search-location','label'=>'Lost & Found',      'badge'=>$lfBadge,'roles'=>['admin','faculty','student']],
-    ['file'=>'capstone.php',   'icon'=>'fa-layer-group',    'label'=>'Capstone Catalog',  'badge'=>0,       'roles'=>['admin','faculty','student']],
-    ['file'=>'community.php',  'icon'=>'fa-hands-helping',  'label'=>'Community Service', 'badge'=>0,       'roles'=>['admin','faculty']],
+    ['file'=>'index.php',      'icon'=>'fa-th-large',       'label'=>'Dashboard',         'badge'=>0,       'roles'=>['super_admin','admin','faculty']],
+    ['file'=>'devices.php',    'icon'=>'fa-laptop',         'label'=>'Device Borrowing',  'badge'=>0,       'roles'=>['super_admin','admin','faculty','staff']],
+    ['file'=>'lost-found.php', 'icon'=>'fa-search-location','label'=>'Lost & Found',      'badge'=>$lfBadge,'roles'=>['super_admin','admin','faculty','student']],
+    ['file'=>'capstone.php',   'icon'=>'fa-layer-group',    'label'=>'Capstone Catalog',  'badge'=>0,       'roles'=>['super_admin','admin','faculty','student']],
+    ['file'=>'community.php',  'icon'=>'fa-hands-helping',  'label'=>'Community Service', 'badge'=>0,       'roles'=>['super_admin','admin','faculty']],
+    ['file'=>'users.php',      'icon'=>'fa-users-cog',      'label'=>'User Management',   'badge'=>0,       'roles'=>['super_admin']],
 ];
 // Filter nav items by role
 $userRole = $_SESSION['user']['role'] ?? 'student';
