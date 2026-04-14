@@ -16,10 +16,10 @@ $page     = basename($_SERVER['PHP_SELF']);
 
 // Pages each role can access
 $allowedPages = [
-    'super_admin' => ['index.php','devices.php','lost-found.php','capstone.php','community.php','users.php'],
-    'admin'       => ['index.php','devices.php','lost-found.php','capstone.php','community.php'],
-    'faculty'     => ['index.php','devices.php','lost-found.php','capstone.php','community.php'],
-    'staff'       => ['devices.php'],
+    'super_admin' => ['index.php','devices.php','lost-found.php','capstone.php','community.php','users.php','post-item.php'],
+    'admin'       => ['index.php','devices.php','lost-found.php','capstone.php','community.php','post-item.php'],
+    'faculty'     => ['index.php','devices.php','lost-found.php','capstone.php','community.php','post-item.php'],
+    'staff'       => ['devices.php','post-item.php'],
     'student'     => ['lost-found.php','capstone.php'],
 ];
 
