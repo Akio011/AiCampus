@@ -123,9 +123,9 @@ require_once 'includes/nav.php';
       <p class="text-slate-400 text-sm mt-0.5">AI-assisted item tracking and recovery workflow</p>
     </div>
     <?php if(isStaff()): ?>
-    <button onclick="document.getElementById('postModal').classList.remove('hidden')" class="btn-primary">
+    <a href="post-item.php" class="btn-primary">
       <i class="fas fa-plus text-xs"></i> Post Item
-    </button>
+    </a>
     <?php endif; ?>
   </div>
 
