@@ -129,6 +129,16 @@ require_once 'includes/nav.php';
     <?php endif; ?>
   </div>
 
+  <?php if(isStaff()): ?>
+  <!-- Mobile FAB -->
+  <button onclick="document.getElementById('postModal').classList.remove('hidden')"
+    style="display:none;position:fixed;bottom:72px;left:50%;transform:translateX(-50%);z-index:98;background:linear-gradient(135deg,#8b1a2e,#c0392b);color:#fff;border:none;border-radius:99px;padding:14px 28px;font-size:14px;font-weight:700;box-shadow:0 6px 20px rgba(139,26,46,.4);cursor:pointer;align-items:center;gap:8px"
+    id="mobileFab">
+    <i class="fas fa-plus"></i> Post Item
+  </button>
+  <style>@media(max-width:768px){#mobileFab{display:flex !important;}}</style>
+  <?php endif; ?>
+
   <div class="p-8">
 
     <!-- ── Stats Bar ── -->
