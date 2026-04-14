@@ -110,6 +110,10 @@ require_once 'includes/nav.php';
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
 .anim-in{opacity:0;animation:fadeUp .45s cubic-bezier(.22,.68,0,1.2) forwards}
+@media(max-width:768px){
+    .lf-stats-grid{grid-template-columns:repeat(2,1fr) !important;}
+    .lf-pipeline{flex-direction:column !important;}
+}
 </style>
 
 <div class="main-content">
@@ -127,43 +131,21 @@ require_once 'includes/nav.php';
 
   <div class="p-8">
 
-    <!-- ── Workflow Pipeline ── -->
-    <div class="lf-pipeline anim-in" style="animation-delay:.05s">
-      <?php $stages=[
-        ['fa-exclamation-circle','#fef2f2','#dc2626',$totalLost,   'Lost Items',    'Actively searching'],
-        ['fa-search',            '#fff7ed','#f97316',$totalActive,  'Under Review',  'AI matching active'],
-        ['fa-check-circle',      '#f0fdf4','#16a34a',$totalFound,   'Found Items',   'Awaiting claim'],
-        ['fa-hand-holding-heart','#f5f3ff','#7c3aed',$totalClaimed, 'Claimed',       'Successfully returned'],
-      ];
-      foreach($stages as $s): ?>
-      <div class="lf-stage">
-        <div class="lf-stage-icon" style="background:<?=$s[1]?>">
-          <i class="fas <?=$s[0]?>" style="color:<?=$s[2]?>;font-size:15px"></i>
-        </div>
-        <div class="lf-stage-num"><?=$s[3]?></div>
-        <div class="lf-stage-label"><?=$s[4]?></div>
-        <div class="lf-stage-sub"><?=$s[5]?></div>
-      </div>
-      <?php endforeach; ?>
-    </div>
-
-    <!-- ── Stats + Locations ── -->
-    <div class="grid grid-cols-4 gap-4 mb-6 anim-in" style="animation-delay:.1s">
+    <!-- ── Stats Bar ── -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px" class="anim-in lf-stats-grid" style="animation-delay:.05s">
       <?php $stats=[
-        ['fa-exclamation-circle','#dc2626','#fef2f2',$totalLost,  'Lost Items',   'Active searches'],
-        ['fa-check-circle',      '#16a34a','#f0fdf4',$totalFound, 'Found Items',  'Awaiting owners'],
-        ['fa-hand-holding',      '#7c3aed','#f5f3ff',$totalClaimed,'Claimed',     'Returned to owner'],
-        ['fa-calendar-day',      '#f97316','#fff7ed',$todayNew,   "Today's Posts",'New this day'],
-      ]; foreach($stats as $s): ?>
-      <div style="background:#fff;border:1px solid #f1f5f9;border-radius:16px;padding:18px;display:flex;align-items:center;gap:12px;box-shadow:0 1px 3px rgba(0,0,0,.05)">
-        <div style="width:42px;height:42px;border-radius:12px;background:<?=$s[2]?>;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-          <i class="fas <?=$s[0]?>" style="color:<?=$s[1]?>;font-size:15px"></i>
+        ['fa-exclamation-circle','#dc2626','linear-gradient(135deg,#fef2f2,#fee2e2)','1px solid #fecaca',$totalLost,  'Lost Items',   'Active searches'],
+        ['fa-search',            '#f97316','linear-gradient(135deg,#fff7ed,#ffedd5)','1px solid #fed7aa',$totalActive, 'Under Review', 'AI matching active'],
+        ['fa-check-circle',      '#16a34a','linear-gradient(135deg,#f0fdf4,#dcfce7)','1px solid #bbf7d0',$totalFound, 'Found Items',  'Awaiting claim'],
+        ['fa-hand-holding-heart','#7c3aed','linear-gradient(135deg,#f5f3ff,#ede9fe)','1px solid #ddd6fe',$totalClaimed,'Claimed',     'Successfully returned'],
+      ]; foreach($stats as $i=>$s): ?>
+      <div class="reveal" style="background:#fff;border:1px solid #f1f5f9;border-radius:18px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.05),0 4px 16px rgba(0,0,0,.04);transition:transform .2s,box-shadow .2s;transition-delay:<?=$i*60?>ms" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,.09)'" onmouseout="this.style.transform='';this.style.boxShadow='0 1px 3px rgba(0,0,0,.05),0 4px 16px rgba(0,0,0,.04)'">
+        <div style="width:44px;height:44px;border-radius:13px;background:<?=$s[2]?>;border:<?=$s[3]?>;display:flex;align-items:center;justify-content:center;margin-bottom:14px">
+          <i class="fas <?=$s[0]?>" style="color:<?=$s[1]?>;font-size:17px"></i>
         </div>
-        <div>
-          <div style="font-size:22px;font-weight:900;color:#1e293b"><?=$s[3]?></div>
-          <div style="font-size:12px;font-weight:600;color:#475569"><?=$s[4]?></div>
-          <div style="font-size:11px;color:#94a3b8"><?=$s[5]?></div>
-        </div>
+        <div style="font-size:32px;font-weight:900;color:#0f172a;line-height:1;letter-spacing:-.02em"><?=$s[4]?></div>
+        <div style="font-size:13px;font-weight:700;color:#374151;margin-top:4px"><?=$s[5]?></div>
+        <div style="font-size:11px;color:#94a3b8;margin-top:2px"><?=$s[6]?></div>
       </div>
       <?php endforeach; ?>
     </div>
