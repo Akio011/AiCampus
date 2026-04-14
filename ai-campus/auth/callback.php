@@ -56,11 +56,8 @@ $user = $stmt->fetch();
 
 $freshAvatar = $userInfo['picture'] ?? null;
 
-// Pre-assigned roles for specific emails
-$roleMap = [
-    'benedict.marzo@lorma.edu' => 'staff',
-];
-$assignedRole = $roleMap[$userInfo['email']] ?? 'student';
+// Role is managed via DB — do not override here
+$assignedRole = 'student';
 
 if (!$user) {
     $pdo->prepare("INSERT INTO users (name, email, role, avatar) VALUES (?,?,?,?)")
@@ -68,15 +65,9 @@ if (!$user) {
     $stmt->execute([$userInfo['email']]);
     $user = $stmt->fetch();
 } else {
-    // Always refresh name and avatar from Google on every login
-    // Also enforce role if email is in the roleMap
-    if (isset($roleMap[$userInfo['email']])) {
-        $pdo->prepare("UPDATE users SET name=?, avatar=?, role=? WHERE email=?")
-            ->execute([$userInfo['name'], $freshAvatar, $roleMap[$userInfo['email']], $userInfo['email']]);
-    } else {
-        $pdo->prepare("UPDATE users SET name=?, avatar=? WHERE email=?")
-            ->execute([$userInfo['name'], $freshAvatar, $userInfo['email']]);
-    }
+    // Only refresh name and avatar — never override role
+    $pdo->prepare("UPDATE users SET name=?, avatar=? WHERE email=?")
+        ->execute([$userInfo['name'], $freshAvatar, $userInfo['email']]);
 }
 
 // Re-fetch user to get updated role
