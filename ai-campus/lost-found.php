@@ -104,7 +104,7 @@ require_once 'includes/nav.php';
 .view-btn.active{background:#8b1a2e;color:#fff;border-color:#8b1a2e}
 
 /* Detail modal */
-.lf-modal-overlay{position:fixed;inset:0;background:rgba(15,23,42,.65);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;z-index:300;animation:fadeIn .2s ease}
+.lf-modal-overlay{position:fixed;inset:0;background:rgba(15,23,42,.65);display:flex;align-items:center;justify-content:center;z-index:300;animation:fadeIn .2s ease}
 .lf-modal-box{background:#fff;border-radius:24px;width:100%;max-width:680px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,.25);animation:modalPop .35s cubic-bezier(.34,1.56,.64,1)}
 @keyframes modalPop{from{opacity:0;transform:scale(.92) translateY(20px)}to{opacity:1;transform:none}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -390,7 +390,7 @@ require_once 'includes/nav.php';
 
 <!-- ── Post Modal ── -->
 <div id="postModal" class="<?=$showForm?'':'hidden'?> modal-overlay">
-  <div class="modal-box" style="max-height:90vh;overflow-y:auto">
+  <div class="modal-box" style="max-height:90vh;overflow-y:auto;position:relative;z-index:201">
     <div class="flex items-center justify-between mb-6">
       <div><h3 class="font-bold text-slate-800 text-base">Post Item</h3>
         <p class="text-slate-400 text-xs mt-0.5">Add a lost or found item to the board</p></div>

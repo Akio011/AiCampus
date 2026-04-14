@@ -102,7 +102,7 @@
         .btn-primary:active { transform: translateY(0); }
 
         /* Modal */
-        .modal-overlay { position: fixed; inset: 0; background: rgba(15,23,42,.5); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 200; }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(15,23,42,.5); display: flex; align-items: center; justify-content: center; z-index: 200; }
         .modal-box { background: #fff; border-radius: 20px; padding: 28px; width: 100%; max-width: 460px; box-shadow: 0 20px 60px rgba(0,0,0,.2); }
         .modal-box.lg { max-width: 560px; max-height: 90vh; overflow-y: auto; }
 
